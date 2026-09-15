@@ -1,15 +1,13 @@
 FROM node:24-alpine3.23
 
 RUN addgroup -S appgroup && \
-    adduser -S -h /home/appuser -G appgroup appuser
-
+    adduser -S -G appgroup
+USER appuser
 WORKDIR /backend/
 
 COPY --chown=appuser:appgroup package*.json ./
 
-USER appuser
-
-RUN npm ci --omit=dev --cache /home/appuser/.npm
+RUN npm ci
 
 COPY --chown=appuser:appgroup . .
 
