@@ -1,10 +1,11 @@
-FROM node:24-alpine3.23 AS build
+FROM node:24-alpine3.23
 RUN addgroup -S appgroup && \
-    adduser -S appuser -G appgroup
+    adduser -S -h /home/appuser appuser -G appgroup
 USER appuser
 WORKDIR /backend/
-COPY --chown=appuser:appuser package*.json ./
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
-COPY --chown=appuser:appuser . .
-CMD ["npm", "run", "dev"]
+
+COPY --chown=appuser:appgroup package*.json ./
+RUN npm ci --omit=dev --cache /home/appuser/.npm
+COPY --chown=appuser:appgroup . .
+EXPOSE 3000
+CMD ["node", "index.js"]
