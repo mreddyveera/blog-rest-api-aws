@@ -48,8 +48,8 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'docker.io/${{ secrets.DOCKERHUB_USERNAME }}/blog-rest-api:${{ env.SHORT_SHA }}'
-          format: 'table'
-          # output: 'trivy-results.sarif'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           ignore-unfixed: true
