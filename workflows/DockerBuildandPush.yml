@@ -50,6 +50,7 @@ jobs:
           image-ref: 'docker.io/${{ secrets.DOCKERHUB_USERNAME }}/blog-rest-api:${{ env.SHORT_SHA }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
+          exit-code: '1'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
 
