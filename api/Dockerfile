@@ -1,11 +1,18 @@
 FROM node:24-alpine3.23
+
 RUN addgroup -S appgroup && \
-    adduser -S -h /home/appuser -G appgroup
-USER appuser
+    adduser -S -h /home/appuser -G appgroup appuser
+
 WORKDIR /backend/
 
 COPY --chown=appuser:appgroup package*.json ./
+
+USER appuser
+
 RUN npm ci --omit=dev --cache /home/appuser/.npm
+
 COPY --chown=appuser:appgroup . .
+
 EXPOSE 3000
+
 CMD ["node", "index.js"]
