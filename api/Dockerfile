@@ -1,7 +1,7 @@
 FROM node:24-alpine3.23
 
 RUN addgroup -S appgroup && \
-    adduser -S appgroup -G
+    adduser -S appuser -G appgroup
 USER appuser
 WORKDIR /backend/
 
