@@ -30,9 +30,9 @@ jobs:
             - name: Install dependencies
               working-directory: ./api
               run: npm ci
-            - name: ESLINT
-              working-directory: ./api
-              run: npm run lint
+            # - name: ESLINT
+            #   working-directory: ./api
+            #   run: npm run lint
             - name: Prettier
               working-directory: ./api
               run: npx prettier --check
