@@ -11,44 +11,44 @@ import BlogRoute from "./routes/Blog.route.js";
 import CommentRoute from "./routes/Comment.route.js";
 import BlogLikeRoute from "./routes/Bloglike.route.js";
 dotenv.config();
-const PORT=process.env.PORT;
-const app=express();
+const PORT = process.env.PORT;
+const app = express();
 app.use(cookieparser());
 app.use(express.json());
-app.use(cors({
-    origin:process.env.FRONTEND_URL,
-    credentials:true
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 //route setup
-app.use("/api/auth",AuthRoute);
-app.use("/api/user",UserRoute);
-app.use("/api/category",CategoryRoute);
-app.use("/api/blog",BlogRoute);
-app.use("/api/comment",CommentRoute);
-app.use("/api/bloglike",BlogLikeRoute);
+app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
+app.use("/api/category", CategoryRoute);
+app.use("/api/blog", BlogRoute);
+app.use("/api/comment", CommentRoute);
+app.use("/api/bloglike", BlogLikeRoute);
 
-mongoose.connect(process.env.MONGODB_CONNECTION, {dbName:"veera-mern-blog"})
-    .then(()=>{
-        console.log("Database connected successfully")
-    })
-    .catch((error)=>{
-        console.log(error.message);
-    })
+mongoose
+  .connect(process.env.MONGODB_CONNECTION, { dbName: "veera-mern-blog" })
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
 
+app.listen(PORT, () => {
+  console.log(`Server started on the port ${PORT}`);
+});
 
-app.listen(PORT,()=>{
-    console.log(`Server started on the port ${PORT}`);
-})
-
-app.use((err,req,res,next)=>{
-    const statusCode=err.statusCode || 500;
-    const message=err.message || 'Internal Server Error'
-    res.status(statusCode).json({
-        success:false,
-        statusCode,
-        message
-    })
-
-})
-
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});

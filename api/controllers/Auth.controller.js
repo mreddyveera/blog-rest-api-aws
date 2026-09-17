@@ -48,15 +48,14 @@ export const Login = async (req, res, next) => {
         avatar: user.avatar,
         role: user.role,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
     res.cookie("access_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      path: "/" ,
+      path: "/",
     });
-   
 
     const newuser = user.toObject({ getters: true });
     delete newuser.password;
@@ -94,7 +93,7 @@ export const GoogleLogin = async (req, res, next) => {
         email: user.email,
         avatar: user.avatar,
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
     res.cookie("access_token", token, {
       httpOnly: true,

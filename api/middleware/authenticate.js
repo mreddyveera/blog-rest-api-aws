@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 export const authenticate = async (req, res, next) => {
   try {
-    const token  = await res.cookies.access_token;
+    const token = await res.cookies.access_token;
     if (!token) {
       next(403, "Unauthorizerd");
     }
