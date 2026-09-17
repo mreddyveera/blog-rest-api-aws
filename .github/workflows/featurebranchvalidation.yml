@@ -2,7 +2,7 @@ name: Feature branch validation
 on:
     push:
         branches:
-            - 'faeture/**'
+            - 'feature/**'
 
 permissions:
     contents: read
