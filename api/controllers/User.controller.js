@@ -5,9 +5,8 @@ import cloudinary from "../config/cloudinary.js";
 export const getUser = async (req, res, next) => {
   try {
     const { email } = req.params;
-   
+
     const user = await User.findOne({ email: email });
-    
 
     if (!user) {
       return next(handleError(404, "User not found"));
@@ -44,16 +43,14 @@ export const updateUser = async (req, res, next) => {
     if (req.file) {
       // Upload an image
       const uploadResult = await cloudinary.uploader
-        .upload(
-          req.file.path,
-          {folder:'mreddyveera-mern-blog',resource_type:'auto'}
-        )
+        .upload(req.file.path, {
+          folder: "mreddyveera-mern-blog",
+          resource_type: "auto",
+        })
         .catch((error) => {
-          next(handleError(500,error.message));
+          next(handleError(500, error.message));
         });
-        user.avatar=uploadResult.secure_url;
-
-      
+      user.avatar = uploadResult.secure_url;
     }
     await user.save();
     const newuser = user.toObject({ getters: true });
@@ -71,10 +68,7 @@ export const updateUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   try {
-    
-   
     const users = await User.find();
-    
 
     if (!users) {
       return next(handleError(404, "Users not found"));
@@ -91,13 +85,13 @@ export const getAllUsers = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   try {
-    const {userid}=req.params;
-     const users = await User.findByIdAndDelete(userid);
-     
-      return res.status(200).json({
-        success:true,
-        message:"Deleted Successfully"
-      })
+    const { userid } = req.params;
+    const users = await User.findByIdAndDelete(userid);
+
+    return res.status(200).json({
+      success: true,
+      message: "Deleted Successfully",
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }

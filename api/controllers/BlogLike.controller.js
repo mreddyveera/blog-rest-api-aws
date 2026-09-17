@@ -4,7 +4,6 @@ export const doLike = async (req, res, next) => {
   try {
     const { blogid, userid } = req.body;
 
-
     const existingLike = await BlogLikeModel.findOne({
       blogid,
       userid: userid,
