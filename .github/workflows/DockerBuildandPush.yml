@@ -76,11 +76,11 @@ jobs:
       - name: Push Docker Image to Registry
         run: |
           docker tag \
-            ${{vars.AWS_REGION}}:${{env.SHORT_SHA}} \
+            ${{vars.REPO_NAME}}:${{env.SHORT_SHA}} \
             ${{steps.login-ecr.outputs.registry}}/${{vars.REPO_NAME}}:${{env.SHORT_SHA}}
 
           docker push \
-            ${{steps.login-ecr.outputs.registry}}/${{vars.REPO_NAME}}:/${{env.SHORT_SHA}}
+            ${{steps.login-ecr.outputs.registry}}/${{vars.REPO_NAME}}:${{env.SHORT_SHA}}
 
       
 
