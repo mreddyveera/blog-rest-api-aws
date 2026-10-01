@@ -1,9 +1,9 @@
 name: Docker Image build to push to a Registry
 'on':
-  pull_request:
-    branches:
-      - develop
-      - main
+  # pull_request:
+  #   branches:
+  #     - develop
+  #     - main
   push:
     branches:
       - develop
