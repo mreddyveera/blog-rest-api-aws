@@ -38,10 +38,11 @@ jobs:
       - name: Build docker image
         id: docker-image
         working-directory: ./api
-        run: docker buildx build \
-              --load \ 
-              -t ${{vars.REPO_NAME}}:${{env.SHORT_SHA}} \
-              .
+        run: |
+          docker buildx build \
+          --load \
+          -t ${{ vars.REPO_NAME }}:${{ env.SHORT_SHA }} \
+          .
 
       - name: Run Trivy scanner
         uses: aquasecurity/trivy-action@v0.36.0
